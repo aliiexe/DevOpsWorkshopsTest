@@ -25,6 +25,3 @@ steps:
     - --platform
     - managed
     - --allow-unauthenticated
-
-images:
-- 'europe-west1-docker.pkg.dev/$PROJECT_ID/devops-repo/app'
