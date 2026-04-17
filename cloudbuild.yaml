@@ -2,7 +2,7 @@ steps:
 
 # STEP 1 — Build Docker Image
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'europe-west1-docker.pkg.dev/$PROJECT_ID/devops-repo/app', '.']
+  args: ['build', '-t', 'europe-west1-docker.pkg.dev/$PROJECT_ID/devops-test-repo/app', '.']
 
 # STEP 2 — Security Scan (DevSecOps)
 
@@ -12,11 +12,11 @@ steps:
 
 # This code detects the vulnerability and continue the build
 - name: 'aquasec/trivy'
-  args: ['image', '--exit-code', '0', 'europe-west1-docker.pkg.dev/$PROJECT_ID/devops-repo/app']
+  args: ['image', '--exit-code', '0', 'europe-west1-docker.pkg.dev/$PROJECT_ID/devops-test-repo/app']
 
 # STEP 3 — Push Image to Registry
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'europe-west1-docker.pkg.dev/$PROJECT_ID/devops-repo/app']
+  args: ['push', 'europe-west1-docker.pkg.dev/$PROJECT_ID/devops-test-repo/app']
 
 # STEP 4 — Deploy to Cloud Run
 - name: 'gcr.io/cloud-builders/gcloud'
@@ -25,7 +25,7 @@ steps:
     - deploy
     - devops-app
     - --image
-    - europe-west1-docker.pkg.dev/$PROJECT_ID/devops-repo/app
+    - europe-west1-docker.pkg.dev/$PROJECT_ID/devops-test-repo/app
     - --region
     - europe-west1
     - --platform
